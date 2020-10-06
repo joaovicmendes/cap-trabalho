@@ -22,11 +22,11 @@
 #define FALSE 0
 
 // Protótipo das funções e procedimentos
-int procuraPalavra(char matriz[LIN_MAT][COL_MAT], int numeroPal, char palavra[numeroPal][TAM_MAX]);
+int procuraPalavra(char matriz[LIN_MAT][COL_MAT], int numeroPalavra, char palavra[numeroPalavra][TAM_MAX]);
 
 void imprimirMatriz(char matriz[LIN_MAT][COL_MAT]);
 
-void imprimirPal (char palavras[QTD_PAL][TAM_MAX], int *vetor, int campo);
+void imprimePalavra (char palavras[QTD_PAL][TAM_MAX], int *vetor, int campo);
 
 void cabecalho(char matriz[LIN_MAT][COL_MAT], char palavras[QTD_PAL][TAM_MAX]);
 
@@ -71,8 +71,8 @@ int main() {
             valida = FALSE;
     }
 
-    imprimirPal(palavras, status, TRUE);
-    imprimirPal(palavras, status, FALSE);
+    imprimePalavra(palavras, status, TRUE);
+    imprimePalavra(palavras, status, FALSE);
 
     if (valida)
         printf("O caça-palavras é VÁLIDO\n");
@@ -84,15 +84,15 @@ int main() {
 }
 
 // Função que busca a palavra
-int procuraPalavra(char matriz[LIN_MAT][COL_MAT], int numeroPal, char palavra[QTD_PAL][TAM_MAX]){
+int procuraPalavra(char matriz[LIN_MAT][COL_MAT], int numeroPalavra, char palavra[QTD_PAL][TAM_MAX]){
     int i, j, k;
     int achou, procurouTudo, diferente;
-    unsigned long int tamPal;
+    unsigned long int tamPalavra;
 
     i = 0;
     achou = FALSE;
     procurouTudo = FALSE;
-    tamPal = strlen(palavra[numeroPal]);
+    tamPalavra = strlen(palavra[numeroPalavra]);
 
     // Repetir o loop até encontrar a palavra ou até chegar no fim da matriz
     while (!achou && !procurouTudo) {
@@ -107,8 +107,8 @@ int procuraPalavra(char matriz[LIN_MAT][COL_MAT], int numeroPal, char palavra[QT
                 k = -1;
 
                 // Procura de cada letra na horiozntal
-                while (!diferente && ++k < tamPal) {
-                    if (palavra[numeroPal][k] == matriz[i][j + k])
+                while (!diferente && ++k < tamPalavra) {
+                    if (palavra[numeroPalavra][k] == matriz[i][j + k])
                         diferente = FALSE;
                     else
                         diferente = TRUE;
@@ -116,7 +116,7 @@ int procuraPalavra(char matriz[LIN_MAT][COL_MAT], int numeroPal, char palavra[QT
 
 
                 // Se chegou no fim e nenhuma letra foi diferente, encontrou
-                if (k == tamPal && !diferente)
+                if (k == tamPalavra && !diferente)
                     achou = TRUE;
 
                 // Se não, procura na vertical
@@ -125,13 +125,13 @@ int procuraPalavra(char matriz[LIN_MAT][COL_MAT], int numeroPal, char palavra[QT
                     k = -1;
 
                     // Procura de cada letra na vertical
-                    while (!diferente && ++k < tamPal) {
-                        if (palavra[numeroPal][k] == matriz[i + k][j])
+                    while (!diferente && ++k < tamPalavra) {
+                        if (palavra[numeroPalavra][k] == matriz[i + k][j])
                             diferente = FALSE;
                         else
                             diferente = TRUE;
                     }
-                    if (k == tamPal && !diferente)
+                    if (k == tamPalavra && !diferente)
                         achou = TRUE;
                 }
                 j++;
@@ -186,7 +186,7 @@ void imprimirMatriz(char matriz[LIN_MAT][COL_MAT]) {
 }
 
 // Procedimento que imprime as palavras
-void imprimirPal (char palavras[QTD_PAL][TAM_MAX], int *vetor, int campo) {
+void imprimePalavra (char palavras[QTD_PAL][TAM_MAX], int *vetor, int campo) {
     int i;
 
     if (campo == TRUE) {
